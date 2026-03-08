@@ -1,0 +1,108 @@
+
+
+
+
+
+config authority router router1 name              router1
+
+config authority router router1 delete dns-config force static
+
+config authority router router1 delete management-proxy force
+
+config authority router router1 delete system force
+
+config authority router router1 node node0 name              node0
+config authority router router1 node node0 asset-id          test
+
+config authority router router1 node node0 delete device-interface force ap-0-0
+
+config authority router router1 node node0 delete device-interface force ge-0-9
+
+config authority router router1 node node0 delete device-interface force ge-0-8
+
+config authority router router1 node node0 delete device-interface force ge-0-7
+
+config authority router router1 node node0 delete device-interface force ge-0-6
+
+config authority router router1 node node0 delete device-interface force ge-0-5
+
+config authority router router1 node node0 delete device-interface force ge-0-4
+
+config authority router router1 node node0 delete device-interface force ge-0-3
+
+config authority router router1 node node0 delete device-interface force ge-0-2
+
+config authority router router1 node node0 delete device-interface force ge-0-1
+
+config authority router router1 node node0 delete device-interface force ge-0-0
+
+config authority router router1 node node0 delete device-interface force bootstrapper
+
+config authority router router1 node node0 device-interface lte-0-0 name               lte-0-0
+
+config authority router router1 node node0 device-interface lte-0-0 delete description force
+
+config authority router router1 node node0 device-interface lte-0-0 lte apn-name       fast.t-mobile.com
+
+config authority router router1 node node0 device-interface lte-0-0 lte delete carrier-image force
+
+config authority router router1 node node0 device-interface lte-0-0 delete capture-filter force len>0
+
+config authority router router1 node node0 device-interface lte-0-0 network-interface lte-0-0-intf name               lte-0-0-intf
+config authority router router1 node node0 device-interface lte-0-0 network-interface lte-0-0-intf global-id          2
+
+config authority router router1 node node0 device-interface lte-0-0 network-interface lte-0-0-intf delete management force
+
+config authority router router1 node node0 device-interface lte-0-0 network-interface lte-0-0-intf delete management-vector force
+
+config authority router router1 node node0 device-interface lan name               lan
+config authority router router1 node node0 device-interface lan interface-name     ge-0-5
+
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 name        192.168.123.1
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 global-id   1
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 tenant      Lte-internet
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 source-nat  true
+
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 ip-address     192.168.123.1
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 prefix-length  24
+
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service dhcp-server service-type  dhcp-server
+
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service dhcp-server address-pool 192.168.123.2 start-address  192.168.123.2
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service dhcp-server address-pool 192.168.123.2 end-address    192.168.123.20
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service dhcp-server address-pool 192.168.123.2 router         192.168.123.1
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service dhcp-server address-pool 192.168.123.2 domain-server  8.8.8.8
+
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service ssh service-type   ssh
+
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service ssh access-policy _internal_ source  _internal_
+
+config authority router router1 node node0 device-interface lan network-interface 192.168.123.1 address 192.168.123.1 host-service web service-type  web
+
+config authority router router1 delete service-route force internet-route-lte-0-0
+
+config authority router router1 delete service-route force internet-route-ge-0-2
+
+config authority router router1 delete service-route force internet-route-ge-0-1
+
+config authority router router1 delete service-route force internet-route-ge-0-0
+
+config authority router router1 service-route to-internet name          to-internet
+config authority router router1 service-route to-internet service-name  internet
+
+config authority router router1 service-route to-internet next-hop node0 lte-0-0-intf node-name  node0
+config authority router router1 service-route to-internet next-hop node0 lte-0-0-intf interface  lte-0-0-intf
+
+config authority tenant Lte-internet name  Lte-internet
+
+
+
+config authority software-access username  (removed)
+config authority software-access token     (removed)
+
+
+
+config authority service internet name           internet
+
+config authority service internet access-policy Lte-internet source  Lte-internet
+
